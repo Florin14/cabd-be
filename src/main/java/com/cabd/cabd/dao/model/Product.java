@@ -1,26 +1,39 @@
 package com.cabd.cabd.dao.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity(name = "product")
-
+@Entity
+@Table(name = "Products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "Product_ID")
+    private Long productId;
 
+    @Column(name = "Name", nullable = false)
     private String name;
-    private int quantity;
-    private double price;
+
+    @Column(name = "Price", nullable = false)
+    private Double price;
+
+    @Column(name = "Stock_Quantity", nullable = false)
+    private Integer stockQuantity;
+
+    @Column(name = "Valid_From", nullable = false)
+    private LocalDateTime validFrom;
+
+    @Column(name = "Valid_To", nullable = false)
+    private LocalDateTime validTo;
 
     // Getters and Setters
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -31,19 +44,35 @@ public class Product {
         this.name = name;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
+    public LocalDateTime getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(LocalDateTime validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public LocalDateTime getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(LocalDateTime validTo) {
+        this.validTo = validTo;
     }
 }

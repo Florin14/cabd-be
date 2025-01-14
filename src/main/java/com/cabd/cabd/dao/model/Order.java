@@ -2,23 +2,31 @@ package com.cabd.cabd.dao.model;
 
 import jakarta.persistence.*;
 
-@Entity(name = "orders")
+@Entity
+@Table(name = "Orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "Order_ID")
+    private Long orderId;
 
+    @Column(name = "Product_ID", nullable = false)
     private Long productId;
-    private int quantity;
+
+    @Column(name = "Username", nullable = false)
+    private String username;
+
+    @Column(name = "Quantity", nullable = false)
+    private Integer quantity;
 
     // Getters and Setters
-    public Long getId() {
-        return id;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Long getProductId() {
@@ -29,11 +37,19 @@ public class Order {
         this.productId = productId;
     }
 
-    public int getQuantity() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }
