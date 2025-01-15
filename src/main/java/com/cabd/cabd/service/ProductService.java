@@ -35,8 +35,8 @@ public class ProductService {
             product.setName(updatedProduct.getName());
             product.setPrice(updatedProduct.getPrice());
             product.setStockQuantity(updatedProduct.getStockQuantity());
-            product.setValidFrom(updatedProduct.getValidFrom());
-            product.setValidTo(updatedProduct.getValidTo());
+            product.setStartDate(updatedProduct.getStartDate());
+            product.setEndDate(updatedProduct.getEndDate());
             return productRepository.save(product);
         }
         throw new IllegalArgumentException("Product with ID " + id + " not found");

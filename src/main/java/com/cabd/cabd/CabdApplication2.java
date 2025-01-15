@@ -40,15 +40,15 @@ public class CabdApplication2 {
 					String name = resultSet.getString("Name");
 					double price = resultSet.getDouble("Price");
 					int stockQuantity = resultSet.getInt("Stock_Quantity");
-					String validFrom = resultSet.getTimestamp("Valid_From").toString();
-					String validTo = resultSet.getTimestamp("Valid_To").toString();
+					String startDate = resultSet.getTimestamp("Valid_From").toString();
+					String EndDate = resultSet.getTimestamp("Valid_To").toString();
 
 					System.out.println("Product ID: " + productId);
 					System.out.println("Name: " + name);
 					System.out.println("Price: " + price);
 					System.out.println("Stock Quantity: " + stockQuantity);
-					System.out.println("Valid From: " + validFrom);
-					System.out.println("Valid To: " + validTo);
+					System.out.println("Valid From: " + startDate);
+					System.out.println("Valid To: " + EndDate);
 					System.out.println("--------------------------");
 				}
 			}
@@ -99,8 +99,8 @@ public class CabdApplication2 {
 					String productName = resultSet.getString("Product_Name");
 					double price = resultSet.getDouble("Price");
 					int stockQuantity = resultSet.getInt("Stock_Quantity");
-					String validFrom = resultSet.getTimestamp("Valid_From").toString();
-					String validTo = resultSet.getTimestamp("Valid_To").toString();
+					String startDate = resultSet.getTimestamp("Valid_From").toString();
+					String EndDate = resultSet.getTimestamp("Valid_To").toString();
 					String changeType = resultSet.getString("Change_Type");
 					String histDate = resultSet.getTimestamp("Hist_Date").toString();
 
@@ -109,8 +109,8 @@ public class CabdApplication2 {
 					System.out.println("Product Name: " + productName);
 					System.out.println("Price: " + price);
 					System.out.println("Stock Quantity: " + stockQuantity);
-					System.out.println("Valid From: " + validFrom);
-					System.out.println("Valid To: " + validTo);
+					System.out.println("Valid From: " + startDate);
+					System.out.println("Valid To: " + EndDate);
 					System.out.println("Change Type: " + changeType);
 					System.out.println("Hist Date: " + histDate);
 					System.out.println("--------------------------");

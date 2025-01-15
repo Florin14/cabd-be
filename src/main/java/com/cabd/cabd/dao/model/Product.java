@@ -25,9 +25,9 @@ public class Product {
     @Column(name = "Stock_Quantity", nullable = false)
     private Integer stockQuantity;
 
-    @Column(name = "Valid_From", nullable = false)
-    private LocalDateTime validFrom;
+    @Column(name = "Start_Date", nullable = false)
+    private LocalDateTime startDate;
 
-    @Column(name = "Valid_To", nullable = false)
-    private LocalDateTime validTo;
+    @Column(name = "End_Date", nullable = false)
+    private LocalDateTime EndDate;
 }
