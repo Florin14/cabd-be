@@ -16,27 +16,21 @@ public class ProductHistory {
     @Column(name = "History_ID")
     private Long historyId;
 
-    @Column(name = "Product_ID")
+    @Column(name = "PRODUCT_ID")
     private Long productId;
 
-    @Column(name = "Product_Name", nullable = false)
+    @Column(name = "PRODUCT_NAME", nullable = false)
     private String name;
 
-    @Column(name = "Price", nullable = false)
+    @Column(name = "PRICE", nullable = false)
     private Double price;
 
-    @Column(name = "Stock_Quantity", nullable = false)
+    @Column(name = "STOCK_QUANTITY", nullable = false)
     private Integer stockQuantity;
 
-    @Column(name = "Valid_From", nullable = false)
+    @Column(name = "VALID_FROM", nullable = false)
     private LocalDateTime validFrom;
 
-    @Column(name = "Valid_To", nullable = false)
-    private LocalDateTime validTo;
-
-    @Column(name = "Change_Type", nullable = false)
-    private LocalDateTime changeTime;
-
-    @Column(name = "Hist_Date", nullable = false)
-    private LocalDateTime histDate;
+    @Column(name = "CHANGE_TYPE", nullable = false)
+    private String changeType;
 }

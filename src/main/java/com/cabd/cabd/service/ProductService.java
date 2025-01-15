@@ -1,7 +1,9 @@
 package com.cabd.cabd.service;
 
 import com.cabd.cabd.dao.model.Product;
+import com.cabd.cabd.dao.model.ProductHistory;
 import com.cabd.cabd.dao.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +37,7 @@ public class ProductService {
             product.setName(updatedProduct.getName());
             product.setPrice(updatedProduct.getPrice());
             product.setStockQuantity(updatedProduct.getStockQuantity());
-            product.setStartDate(updatedProduct.getStartDate());
-            product.setEndDate(updatedProduct.getEndDate());
+            product.setValidFrom(LocalDateTime.now());
             return productRepository.save(product);
         }
         throw new IllegalArgumentException("Product with ID " + id + " not found");
@@ -48,10 +49,6 @@ public class ProductService {
         } else {
             throw new IllegalArgumentException("Product with ID " + id + " not found");
         }
-    }
-
-    public Map<String, Object> getStateAtTimestamp(Long productId, LocalDateTime parsedTimestamp) {
-        return null;
     }
 }
 
