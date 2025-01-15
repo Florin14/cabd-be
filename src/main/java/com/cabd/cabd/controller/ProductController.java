@@ -24,11 +24,6 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Product> getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
-    }
-
     @PostMapping
     public Product addProduct(@RequestBody Product product) {
         return productService.addProduct(product);
@@ -44,6 +39,11 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
+    @GetMapping("/{id}")
+    public Optional<Product> getCurrentState(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
+
     @GetMapping("/state-at-timestamp")
     public ResponseEntity<Map<String, Object>> getStateAtTimestamp(
             @RequestParam Long productId,
@@ -55,5 +55,23 @@ public class ProductController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", "Invalid timestamp format"));
         }
+    }
+
+    @GetMapping("/price-periods/{productId}")
+    public ResponseEntity<String> getPricePeriods(@PathVariable Long productId) {
+//        System.out.println("In controller, cake id:" + productId);
+//        List<Product> products = productService.find(cakeId);
+//
+//        String result = cakeHistoryService.calculatePricePeriods(priceRecords);
+//
+//        return ResponseEntity.ok(result.toString());
+        return null;
+    }
+
+    @GetMapping("/price-differences/{cakeId}")
+    public ResponseEntity<String> getPriceDifferences(@PathVariable Long cakeId) {
+//        List<org.json.JSONObject> differences = cakeHistoryService.getPriceDifferences(cakeId);
+//        return ResponseEntity.ok(differences.toString());
+        return null;
     }
 }
