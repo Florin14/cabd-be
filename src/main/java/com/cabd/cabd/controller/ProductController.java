@@ -2,19 +2,22 @@ package com.cabd.cabd.controller;
 
 import com.cabd.cabd.dao.model.Product;
 import com.cabd.cabd.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin
+@RequiredArgsConstructor
 public class ProductController {
-
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @GetMapping
     public List<Product> getAllProducts() {
@@ -39,5 +42,18 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+    }
+
+    @GetMapping("/state-at-timestamp")
+    public ResponseEntity<Map<String, Object>> getStateAtTimestamp(
+            @RequestParam Long productId,
+            @RequestParam String timestamp) {
+        try {
+            LocalDateTime parsedTimestamp = LocalDateTime.parse(timestamp);
+            Map<String, Object> state = productService.getStateAtTimestamp(productId, parsedTimestamp);
+            return ResponseEntity.ok(state);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid timestamp format"));
+        }
     }
 }

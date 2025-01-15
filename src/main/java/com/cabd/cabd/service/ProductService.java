@@ -2,21 +2,19 @@ package com.cabd.cabd.service;
 
 import com.cabd.cabd.dao.model.Product;
 import com.cabd.cabd.dao.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
-
     private final ProductRepository productRepository;
-
-    @Autowired
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -50,6 +48,10 @@ public class ProductService {
         } else {
             throw new IllegalArgumentException("Product with ID " + id + " not found");
         }
+    }
+
+    public Map<String, Object> getStateAtTimestamp(Long productId, LocalDateTime parsedTimestamp) {
+        return null;
     }
 }
 
