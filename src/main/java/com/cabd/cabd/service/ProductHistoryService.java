@@ -22,7 +22,7 @@ public class ProductHistoryService {
     public List<Map<String, Object>> getPriceDifferences(Long productId) {
         // Fetch the history for the given productId and filter relevant records
         List<ProductHistory> histories = productHistoryRepository.findAll().stream()
-                .filter(h -> h.getProductId().equals(productId))
+                .filter(h -> h.getProduct().getProductId().equals(productId))
                 .sorted(Comparator.comparing(ProductHistory::getValidFrom))
                 .collect(Collectors.toList());
 
@@ -70,7 +70,7 @@ public class ProductHistoryService {
         // Map the ProductHistory entity to a state representation
         ProductHistory productHistory = history.get();
         Map<String, Object> state = new HashMap<>();
-        state.put("productId", productHistory.getProductId());
+        state.put("productId", productHistory.getProduct().getProductId());
         state.put("name", productHistory.getName());
         state.put("price", productHistory.getPrice());
         state.put("stockQuantity", productHistory.getStockQuantity());
