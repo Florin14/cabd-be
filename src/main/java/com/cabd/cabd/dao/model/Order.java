@@ -14,8 +14,10 @@ public class Order {
     @Column(name = "Order_ID")
     private Long orderId;
 
-    @Column(name = "Product_ID", nullable = false)
-    private Long productId;
+
+    @OneToOne
+    @JoinColumn(name = "Product_ID", referencedColumnName = "Product_ID", nullable = false)
+    private Product product;
 
     @Column(name = "Username", nullable = false)
     private String username;
