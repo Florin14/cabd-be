@@ -16,12 +16,8 @@ public class ProductHistory {
     @Column(name = "History_ID")
     private Long historyId;
 
-//    @Column(name = "PRODUCT_ID")
-//    private Long productId;
-
-    @OneToOne
-    @JoinColumn(name = "Product_ID", referencedColumnName = "Product_ID", nullable = false)
-    private Product product;
+    @Column(name = "PRODUCT_ID")
+    private Long productId;
 
     @Column(name = "PRODUCT_NAME", nullable = false)
     private String name;

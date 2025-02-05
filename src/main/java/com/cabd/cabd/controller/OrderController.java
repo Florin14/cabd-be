@@ -1,5 +1,6 @@
 package com.cabd.cabd.controller;
 
+import com.cabd.cabd.dao.dto.OrderRequestDTO;
 import com.cabd.cabd.dao.model.Order;
 import com.cabd.cabd.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order placeOrder(@RequestBody Order order) {
+    public Order placeOrder(@RequestBody OrderRequestDTO order) {
         return orderService.placeOrder(order);
     }
 
