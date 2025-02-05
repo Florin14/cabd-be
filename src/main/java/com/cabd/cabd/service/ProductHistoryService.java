@@ -3,6 +3,7 @@ package com.cabd.cabd.service;
 import com.cabd.cabd.dao.model.Product;
 import com.cabd.cabd.dao.model.ProductHistory;
 import com.cabd.cabd.dao.repository.ProductHistoryRepository;
+import com.cabd.cabd.dao.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductHistoryService {
     private final ProductHistoryRepository productHistoryRepository;
+    private final ProductService productService;
 
     public List<Product> findByProductId(Long productId) {
         return productHistoryRepository.findByProductId(productId);
@@ -22,9 +24,11 @@ public class ProductHistoryService {
     public List<Map<String, Object>> getPriceDifferences(Long productId) {
         // Fetch the history for the given productId and filter relevant records
         List<ProductHistory> histories = productHistoryRepository.findAll().stream()
-                .filter(h -> h.getProduct().getProductId().equals(productId))
+                .filter(h -> h.getProductId().equals(productId))
                 .sorted(Comparator.comparing(ProductHistory::getValidFrom))
                 .collect(Collectors.toList());
+        Optional<Product> product = productService.getProductById(productId);
+
 
         List<Map<String, Object>> result = new ArrayList<>();
 
@@ -34,13 +38,19 @@ public class ProductHistoryService {
 
             if (i == 0) {
                 // Handle the first entry (initial price)
+                entry.put("productName", product.isEmpty() ? "" : product.get().getName());
+                entry.put("stockQuantity", product.isEmpty() ? "" : product.get().getStockQuantity());
+                entry.put("productId", productId);
                 entry.put("timestamp", current.getValidFrom().toString());
                 entry.put("action", "Initial price");
                 entry.put("price", current.getPrice());
             } else {
                 // Handle price changes
                 ProductHistory previous = histories.get(i - 1);
-
+                entry.put("productName", product.isEmpty() ? "" : product.get().getName());
+                entry.put("stockQuantity", product.isEmpty() ? "" : product.get().getStockQuantity());
+                entry.put("productId", productId);
+                entry.put("price", product.isEmpty() ? "" : product.get().getPrice());
                 entry.put("from", previous.getValidFrom().toString());
                 entry.put("to", current.getValidFrom().toString());
                 entry.put("oldPrice", previous.getPrice());
@@ -70,7 +80,7 @@ public class ProductHistoryService {
         // Map the ProductHistory entity to a state representation
         ProductHistory productHistory = history.get();
         Map<String, Object> state = new HashMap<>();
-        state.put("productId", productHistory.getProduct().getProductId());
+        state.put("productId", productHistory.getProductId());
         state.put("name", productHistory.getName());
         state.put("price", productHistory.getPrice());
         state.put("stockQuantity", productHistory.getStockQuantity());
@@ -81,6 +91,7 @@ public class ProductHistoryService {
 
     public Map<String, Object> getPricePeriods(Long productId) {
         List<ProductHistory> historyList = productHistoryRepository.findByProductIdOrderByValidFromAsc(productId);
+        Optional<Product> product = productService.getProductById(productId);
 
         double maxPrice = Double.MIN_VALUE;
         double minPrice = Double.MAX_VALUE;
@@ -138,6 +149,10 @@ public class ProductHistoryService {
         }
 
         return Map.of(
+                "productName", product.isEmpty() ? "" : product.get().getName(),
+                "price", product.isEmpty() ? "" : product.get().getPrice(),
+                "stockQuantity", product.isEmpty() ? "" : product.get().getStockQuantity(),
+                "productId", productId,
                 "maxPrice", maxPrice,
                 "startTimeForMaxPrice", maxPriceStart,
                 "endTimeForMaxPrice", maxPriceEnd,
